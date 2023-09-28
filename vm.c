@@ -30,12 +30,16 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
+#include "reg.h"
 
 // a size for the memory (2^16 bytes = 64k)
 #define MEMORY_SIZE_IN_BYTES (65536 - BYTES_PER_WORD)
 #define MEMORY_SIZE_IN_WORDS (MEMORY_SIZE_IN_BYTES / BYTES_PER_WORD)
 
-static union mem_u
+// MIGHT BE CHANGED LATER. TEMP LOCATION
+#define MAX_STACK_HEIGHT 4096
+
+typedef union mem_u
 {
     byte_type bytes[MEMORY_SIZE_IN_BYTES];
     word_type words[MEMORY_SIZE_IN_WORDS];
@@ -48,7 +52,11 @@ typedef struct {
     int is_tracing;
 } virtual_machine;
 
-const void execute_instr(bin_instr_t instr) {
+// Reading into memory, in our case "mem"
+
+
+
+const void execute_instr(bin_instr_t instr, virtual_machine vm) {
     instr_type it = instruction_type(instr);
     int isSyscall = 0;
 
@@ -116,7 +124,7 @@ const void execute_instr(bin_instr_t instr) {
                     srl(instr.reg.rt, instr.reg.rd, instr.reg.shift, vm);
                     break;
                 case JR_F:
-                    jr(instr.reg.rs, vm)
+                    jr(instr.reg.rs, vm);
                     break;
                 case SYSCALL_F:
                     //should never reach here because it will check syscall before reg
@@ -191,46 +199,35 @@ int main(int argc, char *argv[])
 {
     registers reg;
     virtual_machine * vm = (virtual_machine *) calloc(1, sizeof(virtual_machine));
-    //execute_instr(memory.instrs[i]);
-    // Checking if filename was passed
-    // #TODO Do we need to check? bof_read_open already checks
-    //      whether bf.fileptr is null
-    // if (argc > 1)
-    // {
-    //     BOFFILE bf = bof_read_open(argv[1]);
-    // }
-    // else
-    // {
-    //     return 1;
-    // }
+
     BOFFILE bf = bof_read_open(argv[1]);
     BOFHeader bfHeader = bof_read_header(bf);
 
-    scan_instructions(bfHeader, bf, mem);
-    scan_words(mfHeader, bf, mem);
+    scan_instructions(bfHeader, bf, vm->mem);
+    scan_words(bfHeader, bf, vm->mem);
 
     // textlen / 4
 
     //i think this might be how we are supposed to save the registers?
-    memory.words[index of register] =
+    // memory.words[index of register] =
 
     // Exit
     bof_close(bf);
     return 0;
 }
 
-
-int checkSafety(void) {
-    if (PC % BYTES_PER_WORD != 0) {fprintf(stderr, "PC %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
-    if (GPR[$gp] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$gp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
-    if (GPR[$sp] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$sp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
-    if (GPR[$fp] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$fp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
-    if (GPR[$gp] < 0) {fprintf(stderr, "0 ≤ GPR[$gp] IS FALSE"); return 1;}
-    if (GPR[$gp] >= GPR[$sp]) {fprintf(stderr, "GPR[$gp] < GPR[$sp] IS FALSE"); return 1;}
-    if (GPR[$sp] > GPR[$fp]) {fprintf(stderr, "GPR[$sp] ≤ GPR[$fp] IS FALSE"); return 1;}
-    if (GPR[$fp] >= MAX_STACK_HEIGHT) {fprintf(stderr, "GPR[$fp] < MAX_STACK_HEIGHT IS FALSE"); return 1;}
-    if (PC < 0) {fprintf(stderr, "0 ≤ PC IS FALSE"); return 1;}
-    if (PC >= MEMORY_SIZE_IN_BYTES) {fprintf(stderr, "PC < MEMORY_SIZE_IN_BYTES IS FALSE"); return 1;}
-    if (GPR[0] != 0) {fprintf(stderr, "GPR[0] = 0 IS FALSE"); return 1;}
+//  $gp, $sp, etc. placeholders for acual names/enumeration.
+int checkSafety(virtual_machine vm) {
+    if (vm.regi.pc % BYTES_PER_WORD != 0) {fprintf(stderr, "PC %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
+    if (vm.regi.GPR[GP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$gp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
+    if (vm.regi.GPR[SP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$sp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
+    if (vm.regi.GPR[FP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$fp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
+    if (vm.regi.GPR[GP] < 0) {fprintf(stderr, "0 ≤ GPR[$gp] IS FALSE"); return 1;}
+    if (vm.regi.GPR[GP] >= vm.regi.GPR[SP]) {fprintf(stderr, "GPR[$gp] < GPR[$sp] IS FALSE"); return 1;}
+    if (vm.regi.GPR[SP] > vm.regi.GPR[FP]) {fprintf(stderr, "GPR[$sp] ≤ GPR[$fp] IS FALSE"); return 1;}
+    if (vm.regi.GPR[FP] >= MAX_STACK_HEIGHT) {fprintf(stderr, "GPR[$fp] < MAX_STACK_HEIGHT IS FALSE"); return 1;}
+    if (vm.regi.pc < 0) {fprintf(stderr, "0 ≤ PC IS FALSE"); return 1;}
+    if (vm.regi.pc >= MEMORY_SIZE_IN_BYTES) {fprintf(stderr, "PC < MEMORY_SIZE_IN_BYTES IS FALSE"); return 1;}
+    if (vm.regi.GPR[0] != 0) {fprintf(stderr, "GPR[0] = 0 IS FALSE"); return 1;}
     return 0;
 }

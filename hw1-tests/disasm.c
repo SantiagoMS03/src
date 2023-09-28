@@ -31,8 +31,9 @@ void disasmTextSection(FILE *out, BOFFILE bf, BOFHeader bh)
 // with output going to the file out
 void disasmInstrs(FILE *out, BOFFILE bf, int length)
 {
-    for (int i = 0; i < length; i++) {
-	disasmInstr(out, instruction_read(bf), i*BYTES_PER_WORD);
+    for (int i = 0; i < length; i++)
+    {
+        disasmInstr(out, instruction_read(bf), i * BYTES_PER_WORD);
     }
 }
 
@@ -56,9 +57,10 @@ void disasmDataSection(FILE *out, BOFFILE bf, BOFHeader bh)
 // Disassemble length static data words from bf, with output going to out
 void disasmStaticDecls(FILE *out, BOFFILE bf, int length)
 {
-    while (length > 0) {
-	disasmStaticDecl(out, bof_read_word(bf));
-	length--;
+    while (length > 0)
+    {
+        disasmStaticDecl(out, bof_read_word(bf));
+        length--;
     }
 }
 
@@ -67,7 +69,7 @@ static int word_count = 0;
 // buffer for generated ids
 static char id_buf[16];
 
-static const char*new_word_id()
+static const char *new_word_id()
 {
     sprintf(id_buf, "w%x", word_count);
     word_count++;
