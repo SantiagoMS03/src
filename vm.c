@@ -48,6 +48,10 @@ typedef struct {
     int is_tracing;
 } virtual_machine;
 
+int dummyFunction() {
+    int a = 2;
+}
+
 const void execute_instr(bin_instr_t instr) {
     instr_type it = instruction_type(instr);
     int isSyscall = 0;
