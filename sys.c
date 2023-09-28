@@ -5,7 +5,7 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-
+#include "vm.c"
 
 void exit(virtual_machine vm) {
     bof_close(vm->bf_ptr);

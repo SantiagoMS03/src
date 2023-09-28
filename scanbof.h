@@ -5,6 +5,7 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
+#include "vm.c"
 
 
 void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem);
