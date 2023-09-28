@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/santi/OneDrive/Escritorio/various/2023-fall/sys/hw1/src",
-      "program": "c:/Users/santi/OneDrive/Escritorio/various/2023-fall/sys/hw1/src/build/Debug/outDebug",
+      "cwd": "c:/Users/santi/OneDrive/Escritorio/various/2023-fall/sys/hw1/src/src",
+      "program": "c:/Users/santi/OneDrive/Escritorio/various/2023-fall/sys/hw1/src/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
