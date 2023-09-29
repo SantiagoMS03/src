@@ -57,8 +57,12 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
+    "*.ejs": "html",
     "machine_types.h": "c",
     "file_location.h": "c",
-    "instruction.h": "c"
+    "instruction.h": "c",
+    "bof.h": "c",
+    "regname.h": "c",
+    "jump.h": "c"
   }
 }
