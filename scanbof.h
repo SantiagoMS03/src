@@ -11,10 +11,9 @@
 #include "vm.h"
 
 
-void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem);
-
-
-void scan_words(BOFHeader bfHeader, BOFFILE bf, memory mem);
+extern void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem);
+ 
+extern void scan_words(BOFHeader bfHeader, BOFFILE bf, memory mem);
 
 
 #endif

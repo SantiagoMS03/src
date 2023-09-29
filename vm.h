@@ -1,6 +1,16 @@
 #ifndef _VM_H
 #define _VM_H
+#include <stdio.h>
+#include "vm.h"
+#include "machine_types.h"
+#include "bof.h"
+#include "instruction.h"
+#include "regname.h"
+#include "utilities.h"
+#include "file_location.h"
 #include "reg.h"
+#include "jump.h"
+#include "immed.h"
 
 // a size for the memory (2^16 bytes = 64k)
 #define MEMORY_SIZE_IN_BYTES (65536 - BYTES_PER_WORD)

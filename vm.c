@@ -32,6 +32,10 @@
 #include "utilities.h"
 #include "file_location.h"
 #include "reg.h"
+#include "jump.h"
+#include "immed.h"
+#include "sys.h"
+#include "scanbof.h"
 
 const void execute_instr(bin_instr_t instr , virtual_machine vm) {
     instr_type it = instruction_type(instr);
@@ -106,6 +110,8 @@ const void execute_instr(bin_instr_t instr , virtual_machine vm) {
                 case SYSCALL_F:
                     //should never reach here because it will check syscall before reg
                     break;
+                default:
+                    break;
             }
             break;
 
@@ -161,7 +167,12 @@ const void execute_instr(bin_instr_t instr , virtual_machine vm) {
 
         case jump_instr_type:
             switch (instr.jump.op) {
-
+                case JMP_O:
+                    jmp(vm, instr.jump.addr);
+                    break;
+                case JAL_O:
+                    jal(vm, instr.jump.addr);
+                    break;
             }
             break;
 
@@ -175,7 +186,7 @@ const void execute_instr(bin_instr_t instr , virtual_machine vm) {
 int main(int argc, char *argv[])
 {
     registers reg;
-    virtual_machine * vm = (virtual_machine *) calloc(1, sizeof(virtual_machine));
+    virtual_machine vm;
 
     BOFFILE bf = bof_read_open(argv[1]);
     BOFHeader bfHeader = bof_read_header(bf);
@@ -183,8 +194,8 @@ int main(int argc, char *argv[])
 
 
 
-    scan_instructions(bfHeader, bf, vm->mem);
-    scan_words(bfHeader, bf, vm->mem);
+    scan_instructions(bfHeader, bf, vm.mem);
+    scan_words(bfHeader, bf, vm.mem);
 
     // textlen / 4
 
