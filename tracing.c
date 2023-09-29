@@ -12,15 +12,15 @@
 #include "sys.h"
 #include "scanbof.h"
 
-void print_registers(virtual_machine vm) {
+void print_pc();
+void print_registers() {
     for (int i = 0; i < 32; i++) {
         printf("GPR[%s]: %u\t%c", regname_get(i), vm.regi.GPR[i], (i % 6 == 5) * '\n');
     }
 }
-void print_pc();
 void print_pointers();
 void print_stack_address();
-void print_state(virtual_machine vm) {
+void print_state() {
     print_pc();
     print_registers();
     print_pointers();
