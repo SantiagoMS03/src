@@ -1,3 +1,6 @@
+#ifndef _TRACING_H
+#define _TRACING_H
+
 #include <stdio.h>
 #include "vm.h"
 #include "machine_types.h"
@@ -17,3 +20,5 @@ extern void print_pc();
 extern void print_pointers();
 extern void print_stack_address();
 extern void print_state();
+
+#endif

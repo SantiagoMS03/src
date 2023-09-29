@@ -36,11 +36,11 @@ typedef struct {
 extern struct memory;
 extern struct virtual_machine;
 
-extern int execute_instr(bin_instr_t instr, virtual_machine vm);
+extern int execute_instr(bin_instr_t instr);
 
 extern int main(int argc, char *argv[]);
 
-extern int checkSafety(virtual_machine vm);
-extern void initialize_vm(virtual_machine vm, BOFHeader bfHeader);
+extern int checkSafety();
+extern void initialize_vm(BOFHeader bfHeader);
 
 #endif
