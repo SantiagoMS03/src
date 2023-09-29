@@ -9,6 +9,8 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
+#include "reg.h"
+#include "vm.c"
 // memory is accessed as regi.mem
 // work on sb, accessing least significant beat
 
@@ -46,16 +48,16 @@ void bltz(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] < 0)  vm.regi.pc += machine_types_formOffset(o);
 }
 void lbu(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.regi.GPR[t] = machine_types_zeroExt(vm.regi.mem[vm.regi.GPR[b] + machine_types_formOffset(o)]);
+    vm.regi.GPR[t] = machine_types_zeroExt(vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]); //accessing bytes, might be wrong we'll see
 }
 void lw(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.regi.GPR[t] = vm.regi.mem[vm.regi.GPR[b] + machine_types_formOffset(o)];
+    vm.regi.GPR[t] = vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]; //accessing bytes, might be wrong we'll see
 }
 void sb(virtual_machine vm, int b, int t  , immediate_type o) { // least significant bit
-    vm.regi.mem[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t];
+    vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes, might be wrong we'll see
 }
 void sw(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.regi.mem[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t];
+    vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes, might be wrong we'll see
 
 
 }

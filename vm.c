@@ -198,8 +198,8 @@ int main(int argc, char *argv[])
     BOFFILE bf = bof_read_open(argv[1]);
     BOFHeader bfHeader = bof_read_header(bf);
 
-    scan_instructions(bfHeader, bf, vm);
-    scan_words(bfHeader, bf, vm);
+    scan_instructions(bfHeader, bf, vm->mem);
+    scan_words(bfHeader, bf, vm->mem);
 
     // textlen / 4
 
