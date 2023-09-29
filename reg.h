@@ -26,31 +26,31 @@ typedef struct {
     address_type pc;
 } registers;
 
-extern void add(int s, int t, int d, virtual_machine vm);
+extern void add(int s, int t, int d);
 
-extern void sub(int s, int t, int d, virtual_machine vm);
+extern void sub(int s, int t, int d);
 
-extern void mult(int s, int t, virtual_machine vm);
+extern void mult(int s, int t);
 
-extern void div(int s, int t, virtual_machine vm);
+extern void div(int s, int t);
 
-extern void mfhi(int d, virtual_machine vm);
+extern void mfhi(int d);
 
-extern void mflo(int d, virtual_machine vm);
+extern void mflo(int d);
 
-extern void and(int s, int t, int d, virtual_machine vm);
+extern void and(int s, int t, int d);
 
-extern void bor(int s, int t, int d, virtual_machine vm);
+extern void bor(int s, int t, int d);
 
-extern void nor(int s, int t, int d, virtual_machine vm);
+extern void nor(int s, int t, int d);
 
-extern void xor(int s, int t, int d, virtual_machine vm);
+extern void xor(int s, int t, int d);
 
-extern void sll(int t, int d, int h, virtual_machine vm);
+extern void sll(int t, int d, int h);
 
-extern void srl(int t, int d, int h, virtual_machine vm);
+extern void srl(int t, int d, int h);
 
-extern void jr(int s, virtual_machine vm);
+extern void jr(int s);
 
 
 

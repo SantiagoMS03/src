@@ -13,11 +13,11 @@
 #include "immed.h"
 #include "scanbof.h"
 
-extern void exit(virtual_machine vm);
-extern void pstr(virtual_machine vm);
-extern void pch(virtual_machine vm);
-extern void rch(virtual_machine vm);
-extern void stra(virtual_machine vm);
-extern void notr(virtual_machine vm);
+extern void exit();
+extern void pstr();
+extern void pch();
+extern void rch();
+extern void stra();
+extern void notr();
 
 #endif

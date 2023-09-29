@@ -14,12 +14,12 @@
 #include "sys.h"
 #include "scanbof.h"
 
-void jmp(virtual_machine vm, address_type a) {
+void jmp(address_type a) {
     vm.regi.pc = machine_types_formAddress(vm.regi.pc, a);
     return;
 }
 
-void jal(virtual_machine vm, address_type a) {
+void jal(address_type a) {
     vm.regi.GPR[RA] = vm.regi.pc; 
     vm.regi.pc = machine_types_formAddress(vm.regi.pc, a);
     return;

@@ -28,7 +28,3 @@ extern void scan_words(BOFHeader bfHeader, BOFFILE bf, memory mem) {
     return;
 }
 
-
-
-
-

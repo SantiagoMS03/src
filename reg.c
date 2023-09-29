@@ -13,19 +13,19 @@
 #include "scanbof.h"
 
 
-void add(int s, int t, int d, virtual_machine vm){
+void add(int s, int t, int d){
     vm.regi.GPR[d] = vm.regi.GPR[s] + vm.regi.GPR[t];
     return;
 }
 
 
-void sub(int s, int t, int d, virtual_machine vm){
+void sub(int s, int t, int d){
     vm.regi.GPR[d] = vm.regi.GPR[s] - vm.regi.GPR[t];
     return;
 }
 
 
-void mult(int s, int t, virtual_machine vm){
+void mult(int s, int t){
     int res = vm.regi.GPR[s] * vm.regi.GPR[t];
     int temphi = (res >> 32);
     int templo = (res << 32) >> 32;
@@ -35,7 +35,7 @@ void mult(int s, int t, virtual_machine vm){
 }
 
 
-void div(int s, int t, virtual_machine vm)
+void div(int s, int t)
 {
     vm.regi.hi = vm.regi.GPR[s] % vm.regi.GPR[t];
     vm.regi.lo = vm.regi.GPR[s] / vm.regi.GPR[t];
@@ -43,63 +43,63 @@ void div(int s, int t, virtual_machine vm)
 }
 
 
-void mfhi(int d, virtual_machine vm)
+void mfhi(int d)
 {
     vm.regi.GPR[d] = vm.regi.hi;
     return;
 }
 
 
-void mflo(int d, virtual_machine vm)
+void mflo(int d)
 {
     vm.regi.GPR[d] = vm.regi.lo;
     return;
 }
 
 
-void and(int s, int t, int d, virtual_machine vm)
+void and(int s, int t, int d)
 {
     vm.regi.GPR[d] = vm.regi.GPR[s] & vm.regi.GPR[t];
     return;
 }
 
 
-void bor(int s, int t, int d, virtual_machine vm)
+void bor(int s, int t, int d)
 {
     vm.regi.GPR[d] = vm.regi.GPR[s] | vm.regi.GPR[t];
     return;
 }
 
 
-void nor(int s, int t, int d, virtual_machine vm)
+void nor(int s, int t, int d)
 {
     vm.regi.GPR[d] = ~(vm.regi.GPR[s] | vm.regi.GPR[t]);
     return;
 }
 
 
-void xor(int s, int t, int d, virtual_machine vm)
+void xor(int s, int t, int d)
 {
     vm.regi.GPR[d] = vm.regi.GPR[s] ^ vm.regi.GPR[t];
     return;
 }
 
 
-void sll(int t, int d, int h, virtual_machine vm)
+void sll(int t, int d, int h)
 {
     vm.regi.GPR[d] = vm.regi.GPR[t] << h;
     return;
 }
 
 
-void srl(int t, int d, int h, virtual_machine vm)
+void srl(int t, int d, int h)
 {
     vm.regi.GPR[d] = vm.regi.GPR[t] >> h;
     return;
 }
 
 
-void jr(int s, virtual_machine vm)
+void jr(int s)
 {
     vm.regi.pc = vm.regi.GPR[s];
     return;

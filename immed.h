@@ -23,20 +23,20 @@
 
 
 // do you wanna take out the gpr, hi, lo, and put it into vm straight? instead of making a struct to group them up`
-extern void addi(virtual_machine vm, int s, int t, immediate_type i);
-extern void andi(virtual_machine vm, int s, int t, immediate_type i);
-extern void bori(virtual_machine vm, int s, int t, immediate_type i);
-extern void xori(virtual_machine vm, int s, int t, immediate_type i);
-extern void beq(virtual_machine vm, int s, int t, immediate_type o);
-extern void bne(virtual_machine vm, int s, int t, immediate_type o);
-extern void bgez(virtual_machine vm, int s, int t, immediate_type o);
-extern void bgtz(virtual_machine vm, int s, int t, immediate_type o);
-extern void blez(virtual_machine vm, int s, int t, immediate_type o);
-extern void bltz(virtual_machine vm, int s, int t, immediate_type o);
-extern void lbu(virtual_machine vm, int b, int t  , immediate_type o);
-extern void lw(virtual_machine vm, int b, int t  , immediate_type o);
-extern void sb(virtual_machine vm, int b, int t  , immediate_type o);
-extern void sw(virtual_machine vm, int b, int t  , immediate_type o);
+extern void addi(int s, int t, immediate_type i);
+extern void andi(int s, int t, immediate_type i);
+extern void bori(int s, int t, immediate_type i);
+extern void xori(int s, int t, immediate_type i);
+extern void beq(int s, int t, immediate_type o);
+extern void bne(int s, int t, immediate_type o);
+extern void bgez(int s, int t, immediate_type o);
+extern void bgtz(int s, int t, immediate_type o);
+extern void blez(int s, int t, immediate_type o);
+extern void bltz(int s, int t, immediate_type o);
+extern void lbu(int b, int t  , immediate_type o);
+extern void lw(int b, int t  , immediate_type o);
+extern void sb(int b, int t  , immediate_type o);
+extern void sw(int b, int t  , immediate_type o);
 
 
 #endif

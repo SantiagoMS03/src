@@ -19,72 +19,72 @@
 // work on sb, accessing least significant beat
 
 
-void addi(virtual_machine vm, int s, int t, immediate_type i) {
+void addi(int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] + i;
     return;
 }
 
-void andi(virtual_machine vm, int s, int t, immediate_type i) {
+void andi(int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] & machine_types_zeroExt(i);
     return;
 }
 
-void bori(virtual_machine vm, int s, int t, immediate_type i) {
+void bori(int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] | machine_types_zeroExt(i);
     return;
 }
 
-void xori(virtual_machine vm, int s, int t, immediate_type i) {
+void xori(int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] ^ machine_types_zeroExt(i);
     return;
 }
 
-void beq(virtual_machine vm, int s, int t, immediate_type o) {
+void beq(int s, int t, immediate_type o) {
     if (vm.regi.GPR[t] == vm.regi.GPR[s]) vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void bne(virtual_machine vm, int s, int t, immediate_type o) {
+void bne(int s, int t, immediate_type o) {
     if (vm.regi.GPR[t] != vm.regi.GPR[s]) vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void bgez(virtual_machine vm, int s, int t, immediate_type o) {
+void bgez(int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] >= 0) vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void bgtz(virtual_machine vm, int s, int t, immediate_type o) {
+void bgtz(int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] > 0)  vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void blez(virtual_machine vm, int s, int t, immediate_type o) {
+void blez(int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] <= 0) vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void bltz(virtual_machine vm, int s, int t, immediate_type o) {
+void bltz(int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] < 0)  vm.regi.pc += machine_types_formOffset(o);
     return;
 }
 
-void lbu(virtual_machine vm, int b, int t  , immediate_type o) {
+void lbu(int b, int t  , immediate_type o) {
     vm.regi.GPR[t] = machine_types_zeroExt(vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]); //accessing bytes
     return;
 }
 
-void lw(virtual_machine vm, int b, int t  , immediate_type o) {
+void lw(int b, int t  , immediate_type o) {
     vm.regi.GPR[t] = vm.mem.words[vm.regi.GPR[b] + machine_types_formOffset(o)]; //accessing words
     return;
 }
 
-void sb(virtual_machine vm, int b, int t  , immediate_type o) { // least significant bit
+void sb(int b, int t  , immediate_type o) { // least significant bit
     vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes
     return;
 }
 
-void sw(virtual_machine vm, int b, int t  , immediate_type o) {
+void sw(int b, int t  , immediate_type o) {
     vm.mem.words[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing words
     return;
 }

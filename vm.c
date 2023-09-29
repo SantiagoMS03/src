@@ -37,7 +37,7 @@
 #include "sys.h"
 #include "scanbof.h"
 
-void initialize_vm(virtual_machine vm, BOFHeader bfHeader)
+void initialize_vm(BOFHeader bfHeader)
 {
     vm.regi.hi = 0;
     vm.regi.lo = 0;
@@ -62,23 +62,23 @@ int execute_instr(bin_instr_t instr, virtual_machine vm) {
         case syscall_instr_type:
             switch(instr.syscall.code){
                 case exit_sc:
-                    exit(vm);
+                    exit();
                     return 0;
                     break;
                 case print_str_sc:
-                    pstr(vm);
+                    pstr();
                     break;
                 case print_char_sc:
-                    pch(vm);
+                    pch();
                     break;
                 case read_char_sc:
-                    rch(vm);
+                    rch();
                     break;
                 case start_tracing_sc:
-                    stra(vm);
+                    stra();
                     break;
                 case stop_tracing_sc:
-                    notr(vm);
+                    notr();
                     break;
             }
             break;      
@@ -87,43 +87,43 @@ int execute_instr(bin_instr_t instr, virtual_machine vm) {
         case reg_instr_type:
             switch (instr.reg.func) {
                 case ADD_F:
-                    add(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    add(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case SUB_F:
-                    sub(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    sub(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case MUL_F:
-                    mult(instr.reg.rs, instr.reg.rt, vm);
+                    mult(instr.reg.rs, instr.reg.rt);
                     break;
                 case DIV_F:
-                    div(instr.reg.rs, instr.reg.rt, vm);
+                    div(instr.reg.rs, instr.reg.rt);
                     break;
                 case MFHI_F:
-                    mfhi(instr.reg.rd, vm);
+                    mfhi(instr.reg.rd);
                     break;
                 case MFLO_F:
-                    mflo(instr.reg.rd, vm);
+                    mflo(instr.reg.rd);
                     break;
                 case AND_F:
-                    and(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    and(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case BOR_F:
-                    bor(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    bor(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case NOR_F:
-                    nor(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    nor(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case XOR_F:
-                    xor(instr.reg.rs, instr.reg.rt, instr.reg.rd, vm);
+                    xor(instr.reg.rs, instr.reg.rt, instr.reg.rd);
                     break;
                 case SLL_F:
-                    sll(instr.reg.rt, instr.reg.rd, instr.reg.shift, vm);
+                    sll(instr.reg.rt, instr.reg.rd, instr.reg.shift);
                     break;
                 case SRL_F:
-                    srl(instr.reg.rt, instr.reg.rd, instr.reg.shift, vm);
+                    srl(instr.reg.rt, instr.reg.rd, instr.reg.shift);
                     break;
                 case JR_F:
-                    jr(instr.reg.rs, vm);
+                    jr(instr.reg.rs);
                     break;
                 case SYSCALL_F:
                     //should never reach here because it will check syscall before reg
@@ -137,46 +137,46 @@ int execute_instr(bin_instr_t instr, virtual_machine vm) {
         case immed_instr_type:
             switch (instr.immed.op) {
                 case ADDI_O:
-                    addi(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    addi(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case ANDI_O:
-                    andi(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    andi(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BORI_O:
-                    bori(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    bori(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case XORI_O:
-                    xori(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    xori(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BEQ_O:
-                    beq(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    beq(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BNE_O:
-                    bne(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    bne(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BGEZ_O:
-                    bgez(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    bgez(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BGTZ_O:
-                    bgtz(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    bgtz(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BLEZ_O:
-                    blez(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    blez(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case BLTZ_O:
-                    bltz(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    bltz(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case LBU_O:
-                    lbu(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    lbu(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case LW_O:
-                    lw(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    lw(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case SB_O:
-                    sb(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    sb(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 case SW_O:
-                    sw(vm, instr.immed.rs, instr.immed.rt, instr.immed.immed);
+                    sw(instr.immed.rs, instr.immed.rt, instr.immed.immed);
                     break;
                 default:
                     break;
@@ -186,10 +186,10 @@ int execute_instr(bin_instr_t instr, virtual_machine vm) {
         case jump_instr_type:
             switch (instr.jump.op) {
                 case JMP_O:
-                    jmp(vm, instr.jump.addr);
+                    jmp(instr.jump.addr);
                     break;
                 case JAL_O:
-                    jal(vm, instr.jump.addr);
+                    jal(instr.jump.addr);
                     break;
             }
             break;
@@ -201,10 +201,11 @@ int execute_instr(bin_instr_t instr, virtual_machine vm) {
 
 }
 
+virtual_machine vm;
+
 int main(int argc, char *argv[])
 {
     registers reg;
-    virtual_machine vm;
 
     int res = 0;
 
@@ -213,7 +214,7 @@ int main(int argc, char *argv[])
     vm.bf = bf;
 
 
-    initialize_vm(vm, bfHeader);
+    initialize_vm(bfHeader);
     printf("pc before increment: %d\n", vm.regi.pc);
     vm.regi.pc++;
     printf("pc after increment: %d\n", vm.regi.pc);
@@ -224,7 +225,7 @@ int main(int argc, char *argv[])
     scan_words(bfHeader, bf, vm.mem);
 
     while(res) {
-        res = execute_instr(vm.mem.instrs[vm.regi.pc], vm);
+        res = execute_instr(vm.mem.instrs[vm.regi.pc]);
         vm.regi.pc++;
         
     }
@@ -235,7 +236,7 @@ int main(int argc, char *argv[])
 }
 
 
-int checkSafety(virtual_machine vm) {
+int checkSafety() {
     if (vm.regi.pc % BYTES_PER_WORD != 0) {fprintf(stderr, "PC %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
     if (vm.regi.GPR[GP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$gp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
     if (vm.regi.GPR[SP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$sp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}

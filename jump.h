@@ -15,7 +15,7 @@
 #include "scanbof.h"
 
 //stuff goes here
-extern void jmp(virtual_machine vm, address_type a);
-extern void jal(virtual_machine vm, address_type a);
+extern void jmp(address_type a);
+extern void jal(address_type a);
 
 #endif
