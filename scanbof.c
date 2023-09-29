@@ -8,20 +8,20 @@
 #include "vm.c"
 
 
-extern void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem) {
+extern void scan_instructions(BOFHeader bfHeader, BOFFILE bf, virtual_machine vm) {
     int numOfInstructs = bfHeader.text_length / 4;
     for (int i = 0; i < numOfInstructs; i++)
     {
-        mem.instrs[bfHeader.text_start_address + i] = instruction_read(bf);
+        vm.mem.instrs[bfHeader.text_start_address + i] = instruction_read(bf);
     }
 }
 
 
-extern void scan_words(BOFHeader bfHeader, BOFFILE bf, memory mem) {
+extern void scan_words(BOFHeader bfHeader, BOFFILE bf, virtual_machine vm) {
     int numOfWords = bfHeader.data_length / 4;
     for(int i = 0; i < numOfWords; i++)
     {
-        mem.words[bfHeader.data_start_address + i] = bof_read_word(bf);
+        vm.mem.words[bfHeader.data_start_address + i] = bof_read_word(bf);
     }
 }
 
