@@ -214,9 +214,9 @@ int main(int argc, char *argv[])
 
 
     initialize_vm(vm, bfHeader);
-    printf("%d\n", vm.regi.pc);
+    printf("pc before increment: %d\n", vm.regi.pc);
     vm.regi.pc++;
-    printf("%d\n", vm.regi.pc);
+    printf("pc after increment: %d\n", vm.regi.pc);
     return 0;
 
 
