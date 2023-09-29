@@ -36,8 +36,7 @@
 #define MEMORY_SIZE_IN_BYTES (65536 - BYTES_PER_WORD)
 #define MEMORY_SIZE_IN_WORDS (MEMORY_SIZE_IN_BYTES / BYTES_PER_WORD)
 
-// MIGHT BE CHANGED LATER. TEMP LOCATION
-#define MAX_STACK_HEIGHT 4096
+#define MAX_STACK_HEIGHT 4096 //subject to change, might be wrong
 
 typedef union mem_u
 {
@@ -52,11 +51,7 @@ typedef struct {
     int is_tracing;
 } virtual_machine;
 
-// Reading into memory, in our case "mem"
-
-
-
-const void execute_instr(bin_instr_t instr, virtual_machine vm) {
+const void execute_instr(bin_instr_t instr , virtual_machine vm) {
     instr_type it = instruction_type(instr);
     int isSyscall = 0;
 
@@ -203,20 +198,17 @@ int main(int argc, char *argv[])
     BOFFILE bf = bof_read_open(argv[1]);
     BOFHeader bfHeader = bof_read_header(bf);
 
-    scan_instructions(bfHeader, bf, vm->mem);
-    scan_words(bfHeader, bf, vm->mem);
+    scan_instructions(bfHeader, bf, vm);
+    scan_words(bfHeader, bf, vm);
 
     // textlen / 4
-
-    //i think this might be how we are supposed to save the registers?
-    // memory.words[index of register] =
 
     // Exit
     bof_close(bf);
     return 0;
 }
 
-//  $gp, $sp, etc. placeholders for acual names/enumeration.
+
 int checkSafety(virtual_machine vm) {
     if (vm.regi.pc % BYTES_PER_WORD != 0) {fprintf(stderr, "PC %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
     if (vm.regi.GPR[GP] % BYTES_PER_WORD != 0) {fprintf(stderr, "GPR[$gp] %% BYTES_PER_WORD = 0 IS FALSE"); return 1;}
