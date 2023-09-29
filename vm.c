@@ -37,7 +37,24 @@
 #include "sys.h"
 #include "scanbof.h"
 
-const void execute_instr(bin_instr_t instr , virtual_machine vm) {
+void initialize_vm(virtual_machine vm, BOFHeader bfHeader)
+{
+    vm.regi.hi = 0;
+    vm.regi.lo = 0;
+    vm.regi.pc = bfHeader.text_start_address;
+
+    for(int i = 0; i < 32; i++)
+    {
+        vm.regi.GPR[i] = 0;
+    }
+
+    vm.regi.GPR[GP] = bfHeader.data_start_address;
+    vm.regi.GPR[SP] = bfHeader.stack_bottom_addr;
+    vm.regi.GPR[FP] = bfHeader.stack_bottom_addr;
+    return;
+}
+
+int execute_instr(bin_instr_t instr, virtual_machine vm) {
     instr_type it = instruction_type(instr);
     int isSyscall = 0;
 
@@ -46,6 +63,7 @@ const void execute_instr(bin_instr_t instr , virtual_machine vm) {
             switch(instr.syscall.code){
                 case exit_sc:
                     exit(vm);
+                    return 0;
                     break;
                 case print_str_sc:
                     pstr(vm);
@@ -179,7 +197,7 @@ const void execute_instr(bin_instr_t instr , virtual_machine vm) {
         default: //should never reach
             break;
     }
-
+    return 1;
 
 }
 
@@ -188,16 +206,30 @@ int main(int argc, char *argv[])
     registers reg;
     virtual_machine vm;
 
+    int res = 0;
+
     BOFFILE bf = bof_read_open(argv[1]);
     BOFHeader bfHeader = bof_read_header(bf);
     vm.bf = bf;
 
 
+    initialize_vm(vm, bfHeader);
+    printf("%d\n", vm.regi.pc);
+    vm.regi.pc++;
+    printf("%d\n", vm.regi.pc);
+    return 0;
+
 
     scan_instructions(bfHeader, bf, vm.mem);
     scan_words(bfHeader, bf, vm.mem);
 
-    // textlen / 4
+    while(res) {
+        res = execute_instr(vm.mem.instrs[vm.regi.pc], vm);
+        vm.regi.pc++;
+        
+    }
+
+
 
     // Exit
     bof_close(bf);

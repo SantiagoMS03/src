@@ -1,11 +1,16 @@
 #include <stdio.h>
+#include "sys.h"
+#include "vm.h"
 #include "machine_types.h"
 #include "bof.h"
 #include "instruction.h"
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-#include "vm.h"
+#include "reg.h"
+#include "jump.h"
+#include "immed.h"
+#include "scanbof.h"
 
 void exit(virtual_machine vm) {
     bof_close(vm.bf); 

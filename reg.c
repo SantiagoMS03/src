@@ -1,12 +1,16 @@
 #include <stdio.h>
-#include "machine_types.h"
+#include "vm.h"
 #include "reg.h"
+#include "machine_types.h"
 #include "bof.h"
 #include "instruction.h"
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-#include "vm.h"
+#include "jump.h"
+#include "immed.h"
+#include "sys.h"
+#include "scanbof.h"
 
 
 void add(int s, int t, int d, virtual_machine vm){

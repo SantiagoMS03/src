@@ -6,6 +6,7 @@
 #include "utilities.h"
 #include "file_location.h"
 #include "vm.h"
+#include "scanbof.h"
 
 
 extern void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem) {

@@ -1,7 +1,7 @@
 #ifndef _VM_H
 #define _VM_H
 #include <stdio.h>
-#include "vm.h"
+#include "jump.h"
 #include "machine_types.h"
 #include "bof.h"
 #include "instruction.h"
@@ -9,8 +9,9 @@
 #include "utilities.h"
 #include "file_location.h"
 #include "reg.h"
-#include "jump.h"
 #include "immed.h"
+#include "sys.h"
+#include "scanbof.h"
 
 // a size for the memory (2^16 bytes = 64k)
 #define MEMORY_SIZE_IN_BYTES (65536 - BYTES_PER_WORD)
@@ -32,10 +33,14 @@ typedef struct {
     BOFFILE bf;
 } virtual_machine;
 
-extern const void execute_instr(bin_instr_t instr , virtual_machine vm);
+extern struct memory;
+extern struct virtual_machine;
+
+extern int execute_instr(bin_instr_t instr, virtual_machine vm);
 
 extern int main(int argc, char *argv[]);
 
 extern int checkSafety(virtual_machine vm);
+extern void initialize_vm(virtual_machine vm, BOFHeader bfHeader);
 
 #endif

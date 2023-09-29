@@ -11,6 +11,7 @@
 #include "reg.h"
 #include "jump.h"
 #include "immed.h"
+#include "scanbof.h"
 
 extern void exit(virtual_machine vm);
 extern void pstr(virtual_machine vm);
@@ -18,7 +19,5 @@ extern void pch(virtual_machine vm);
 extern void rch(virtual_machine vm);
 extern void stra(virtual_machine vm);
 extern void notr(virtual_machine vm);
-
-
 
 #endif

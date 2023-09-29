@@ -6,13 +6,18 @@
 
 
 #include <stdio.h>
-#include "machine_types.h" // this
+#include "vm.h"
+#include "machine_types.h"
 #include "bof.h"
 #include "instruction.h"
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-#include "vm.h"
+#include "reg.h"
+#include "jump.h"
+#include "immed.h"
+#include "sys.h"
+#include "scanbof.h"
 // memory is accessed as reg.mem, i didn't know how we were accessing memory, do we have that in our struct?
 // work on sb, accessing least significant beat
 
