@@ -12,17 +12,8 @@
 #include "sys.h"
 #include "scanbof.h"
 
-void print_registers() {
-    for (int i = 0; i < 32; i++) {
-        printf("GPR[%s]: %u\t%c", regname_get(i), vm.regi.GPR[i], (i % 6 == 5) * '\n');
-    }
-}
-void print_pc();
-void print_pointers();
-void print_stack_address();
-void print_state() {
-    print_pc(vm);
-    print_registers(vm);
-    print_pointers(vm);
-    print_stack_address(vm);
-}
+extern void print_registers();
+extern void print_pc();
+extern void print_pointers();
+extern void print_stack_address();
+extern void print_state();

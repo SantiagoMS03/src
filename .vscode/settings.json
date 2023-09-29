@@ -63,6 +63,7 @@
     "instruction.h": "c",
     "bof.h": "c",
     "regname.h": "c",
-    "jump.h": "c"
+    "jump.h": "c",
+    "id_attrs.h": "c"
   }
 }
