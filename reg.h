@@ -11,6 +11,8 @@
 #include "utilities.h"
 #include "file_location.h"
 
+#define V0 2
+#define A0 4
 
 typedef struct {
     address_type GPR[32];

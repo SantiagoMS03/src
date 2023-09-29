@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "machine_types.h" // this
 #include "bof.h"
+#include "immed.h"
 #include "instruction.h"
 #include "regname.h"
 #include "utilities.h"
@@ -17,49 +18,72 @@
 
 void addi(virtual_machine vm, int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] + i;
+    return;
 }
+
 void andi(virtual_machine vm, int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] & machine_types_zeroExt(i);
+    return;
 }
+
 void bori(virtual_machine vm, int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] | machine_types_zeroExt(i);
+    return;
 }
+
 void xori(virtual_machine vm, int s, int t, immediate_type i) {
     vm.regi.GPR[t] = vm.regi.GPR[s] ^ machine_types_zeroExt(i);
+    return;
 }
+
 void beq(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[t] == vm.regi.GPR[s]) vm.regi.pc += machine_types_formOffset(o);
+    return;
 }
+
 void bne(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[t] != vm.regi.GPR[s]) vm.regi.pc += machine_types_formOffset(o);
-
-
+    return;
 }
+
 void bgez(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] >= 0) vm.regi.pc += machine_types_formOffset(o);
+    return;
 }
+
 void bgtz(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] > 0)  vm.regi.pc += machine_types_formOffset(o);
+    return;
 }
+
 void blez(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] <= 0) vm.regi.pc += machine_types_formOffset(o);
+    return;
 }
+
 void bltz(virtual_machine vm, int s, int t, immediate_type o) {
     if (vm.regi.GPR[s] < 0)  vm.regi.pc += machine_types_formOffset(o);
+    return;
 }
+
 void lbu(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.regi.GPR[t] = machine_types_zeroExt(vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]); //accessing bytes, might be wrong we'll see
+    vm.regi.GPR[t] = machine_types_zeroExt(vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]); //accessing bytes
+    return;
 }
+
 void lw(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.regi.GPR[t] = vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)]; //accessing bytes, might be wrong we'll see
+    vm.regi.GPR[t] = vm.mem.words[vm.regi.GPR[b] + machine_types_formOffset(o)]; //accessing words
+    return;
 }
+
 void sb(virtual_machine vm, int b, int t  , immediate_type o) { // least significant bit
-    vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes, might be wrong we'll see
+    vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes
+    return;
 }
+
 void sw(virtual_machine vm, int b, int t  , immediate_type o) {
-    vm.mem.bytes[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing bytes, might be wrong we'll see
-
-
+    vm.mem.words[vm.regi.GPR[b] + machine_types_formOffset(o)] = vm.regi.GPR[t]; //accessing words
+    return;
 }
 
 

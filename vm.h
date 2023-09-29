@@ -19,6 +19,7 @@ typedef struct {
     memory mem;
     registers regi;
     int is_tracing;
+    BOFFILE bf;
 } virtual_machine;
 
 extern const void execute_instr(bin_instr_t instr , virtual_machine vm);

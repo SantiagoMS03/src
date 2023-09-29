@@ -8,22 +8,22 @@
 #include "vm.h"
 
 void exit(virtual_machine vm) {
-    bof_close(vm->bf_ptr); //what is bf_ptr?
+    bof_close(vm.bf); 
 }
 
 
 void pstr(virtual_machine vm) {
-    // to do
+    vm.regi.GPR[V0] = printf("%s", &vm.mem.words[vm.regi.GPR[A0]]);
 }
 
 
 void pch(virtual_machine vm) {
-    // to do
+    vm.regi.GPR[V0] = fputc(vm.regi.GPR[A0], stdout);
 }
 
 
 void rch(virtual_machine vm) {
-    // to do
+    vm.regi.GPR[V0] = getc(stdin);
 }
 
 

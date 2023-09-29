@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "machine_types.h"
+#include "reg.h"
 #include "bof.h"
 #include "instruction.h"
 #include "regname.h"

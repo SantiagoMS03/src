@@ -14,6 +14,7 @@ extern void scan_instructions(BOFHeader bfHeader, BOFFILE bf, memory mem) {
     {
         mem.instrs[bfHeader.text_start_address + i] = instruction_read(bf);
     }
+    return;
 }
 
 
@@ -23,6 +24,7 @@ extern void scan_words(BOFHeader bfHeader, BOFFILE bf, memory mem) {
     {
         mem.words[bfHeader.data_start_address + i] = bof_read_word(bf);
     }
+    return;
 }
 
 
