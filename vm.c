@@ -24,6 +24,7 @@
 //https://docs.google.com/document/d/1tugw3R9-Me7lKjrmvLweAn5dtPWb4Au2O_2QlgS32LM/edit?usp=sharing
 
 #include <stdio.h>
+#include "vm.h"
 #include "machine_types.h"
 #include "bof.h"
 #include "instruction.h"
@@ -31,25 +32,6 @@
 #include "utilities.h"
 #include "file_location.h"
 #include "reg.h"
-
-// a size for the memory (2^16 bytes = 64k)
-#define MEMORY_SIZE_IN_BYTES (65536 - BYTES_PER_WORD)
-#define MEMORY_SIZE_IN_WORDS (MEMORY_SIZE_IN_BYTES / BYTES_PER_WORD)
-
-#define MAX_STACK_HEIGHT 4096 //subject to change, might be wrong
-
-typedef union mem_u
-{
-    byte_type bytes[MEMORY_SIZE_IN_BYTES];
-    word_type words[MEMORY_SIZE_IN_WORDS];
-    bin_instr_t instrs[MEMORY_SIZE_IN_WORDS];
-} memory;
-
-typedef struct {
-    memory mem;
-    registers regi;
-    int is_tracing;
-} virtual_machine;
 
 const void execute_instr(bin_instr_t instr , virtual_machine vm) {
     instr_type it = instruction_type(instr);

@@ -5,10 +5,10 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-#include "vm.c"
+#include "vm.h"
 
 void exit(virtual_machine vm) {
-    bof_close(vm->bf_ptr);
+    bof_close(vm->bf_ptr); //what is bf_ptr?
 }
 
 

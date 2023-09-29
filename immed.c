@@ -10,7 +10,7 @@
 #include "utilities.h"
 #include "file_location.h"
 #include "reg.h"
-#include "vm.c"
+#include "vm.h"
 // memory is accessed as regi.mem
 // work on sb, accessing least significant beat
 

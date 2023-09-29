@@ -12,7 +12,7 @@
 #include "regname.h"
 #include "utilities.h"
 #include "file_location.h"
-#include "vm.c"
+#include "vm.h"
 // memory is accessed as reg.mem, i didn't know how we were accessing memory, do we have that in our struct?
 // work on sb, accessing least significant beat
 
